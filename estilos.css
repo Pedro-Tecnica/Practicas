@@ -1,0 +1,50 @@
+body{
+    background-color: rgb(227, 228, 230);
+}
+
+.cabecera{
+    display: flex;
+    align-items: center;
+    gap: 360px;
+}
+
+#buscador{
+    border: solid 1px;
+    border-color: rgb(196, 196, 196);
+    border-radius: 20px;
+    padding: 4px 30px;
+}
+
+.navegacion{
+    justify-content: center;
+    display: flex;
+    gap: 80px;
+}
+
+.contenido{
+    display: flex;
+    justify-content: center;
+}
+
+.heladera{
+    background-color: aqua;
+
+}
+
+.img1{
+    width: 250px;
+    height: 250px;
+}
+
+.img2{
+    width: 250px;
+    height: 250px;
+}
+
+.img3{
+    width: 250px;
+    height: 250px;
+}
+
+
+
