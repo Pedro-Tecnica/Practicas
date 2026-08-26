@@ -24,11 +24,20 @@ body{
 .contenido{
     display: flex;
     justify-content: center;
+    gap: 20px;
 }
 
 .heladera{
-    background-color: aqua;
+    background-color: aliceblue;
 
+}
+
+.horno{
+    background-color: aliceblue;
+}
+
+.microondas{
+    background-color: aliceblue;
 }
 
 .img1{
