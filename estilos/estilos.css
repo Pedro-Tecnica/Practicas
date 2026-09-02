@@ -22,6 +22,11 @@ a{
     padding: 4px 30px;
 }
 
+.carrito{
+    width: 50px;
+    height: 50px;
+}
+
 .navegacion{
     justify-content: center;
     display: flex;
@@ -62,4 +67,14 @@ a{
 #txtmail, #txtcontra, #txtnomb, #txtdni, #txtDir, #txttel{
     width: 90%;
     margin-bottom: 20px;
+}
+
+#heladera-compra, #horno-compra, #micro-compra{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(203, 205, 206);
+    border: solid 1px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }

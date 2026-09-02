@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="/estilos/estilos.css">
     <title>MacroMundo</title>
 </head>
 <body>
@@ -13,6 +13,9 @@
         <div class="cabecera">
             <h1>MacroMundo</h1>
             <input id="buscador" type="text"> 
+            <a href="carrito.html">
+                <img src="/imgs/carrito.png" alt="Carrito de compras" class="carrito" id="carrito">
+            </a>
         </div>
 
         <div class="navegacion"> 
@@ -27,34 +30,34 @@
 <h2>Productos de Cocina</h2>
     <div class="contenido">    
         <div id="heladera" class="heladera">
-            <img src="heladera.png" class="img1" alt="">
+            <img src="/imgs/heladera.png" class="img1" alt="">
             <h3>Heladera Hilux</h3>
             <p>lorem ipsum dolor sit amet</p>
             <h2>Precio: $1,299.99</h2>
-            <button id="heladera-compra">Agregar al Carrito</button>
+            <button class="btn-agregar" data-id="heladera">Agregar al Carrito</button>
         </div>
 
         <div class="horno">
-            <img src="horno.png" class="img2" alt="">
+            <img src="/imgs/horno.png" class="img2" alt="">
             <h3>Horno Tostador</h3>
             <p>lorem ipsum dolor sit amet</p>
             <h2>Precio: $399.99</h2>
-            <button id="horno-compra">Agregar al Carrito</button>
+            <button class="btn-agregar" data-id="horno">Agregar al Carrito</button>
         </div>
 
         <div class="microondas">
-            <img src="microondas.png" class="img3" alt="">
+            <img src="/imgs/microondas.png" class="img3" alt="">
              <h3>Microondas</h3>
            <p>lorem ipsum dolor sit amet</p>
             <h2>Precio: $199.99</h2>
-            <button id="micro-compra">Agregar al Carrito</button>
+            <button class="btn-agregar" data-id="microondas">Agregar al Carrito</button>
         </div>
 
         
-
-        <script src=""></script>
+        <script type="module" src="/src/utils/App.tsx" ></script>
+        <script type="module" src="/logica/compra.js"></script>
+        <script type="module" src="/logica/sesion.js"></script>
     </div>
-
 
 
 </body>
