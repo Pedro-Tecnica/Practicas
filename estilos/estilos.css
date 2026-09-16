@@ -40,19 +40,27 @@ a{
     gap: 60px;
 }
 
-.heladera, .horno, .microondas{
-    background-color: aliceblue;
-    box-shadow: 2px 2px 2px 2px rgb(56, 56, 56);
-    border-radius: 10px;
-
-}
-
-.img1, .img2, .img3{
+.producto{
     width: 250px;
-    height: 250px;
-    border: solid 1px; 
+    border: 1px solid #ddd;
     border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
 }
+
+.producto img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    margin-bottom: 10px;
+    background-color: rgb(240, 250, 255);
+}
+
 
 .registro, .Registro{
     display: flex;
