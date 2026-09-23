@@ -68,3 +68,29 @@ async function cargarCarrito() {
 }
 
 cargarCarrito();
+
+const btnFinalizar = document.getElementById('btn-finalizar');
+
+if (btnFinalizar) {
+    btnFinalizar.addEventListener('click', async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+            alert('Debes iniciar sesión para finalizar la compra.');
+            return;
+        }
+
+        const { error } = await supabase.rpc('finalizar_compra', {
+            p_usuario_id: session.user.id
+        });
+
+        if (error) {
+            console.error('Error al finalizar la compra:', error.message);
+            alert('No se pudo completar la compra: ' + error.message);
+            return;
+        }
+
+        alert('¡Compra realizada con éxito!');
+        cargarCarrito();
+    });
+}

@@ -1,9 +1,22 @@
 import { supabase } from '../src/utils/supabaseClient.js';
 import { activarBotonesCarrito } from './compra.js';
 
-async function cargarProductos(categoria = null) {
+// Detecta automáticamente la categoría según el nombre del archivo HTML actual
+const pagina = window.location.pathname.split('/').pop();
+const categoriasPorPagina = {
+    'cocina.html': 'cocina',
+    'gaming.html': 'gaming',
+    'deportes.html': 'deportes',
+};
+const categoriaActual = categoriasPorPagina[pagina] || null;
+
+async function cargarProductos(categoria = categoriaActual, textoBusqueda = '') {
     let query = supabase.from('Productos').select('*');
+
     if (categoria) query = query.eq('categoria', categoria);
+    if (textoBusqueda.trim() !== '') {
+        query = query.ilike('nombre', `%${textoBusqueda.trim()}%`);
+    }
 
     const { data: productos, error } = await query;
 
@@ -13,9 +26,15 @@ async function cargarProductos(categoria = null) {
     }
 
     const contenedor = document.getElementById('productos');
+    if (!contenedor) return;
     contenedor.innerHTML = '';
 
-    productos.forEach(async producto => {
+    if (productos.length === 0) {
+        contenedor.innerHTML = '<p>No se encontraron productos.</p>';
+        return;
+    }
+
+    productos.forEach(producto => {
         const div = document.createElement('div');
         div.classList.add('producto');
         div.innerHTML = `
@@ -25,22 +44,24 @@ async function cargarProductos(categoria = null) {
             <h2>Precio: $${producto.precio}</h2>
             <button class="btn-agregar" data-id="${producto.id}">Agregar al Carrito</button>`;
         contenedor.appendChild(div);
-    
-    const { data: productos, error } = await query;
-
-console.log('Productos recibidos:', productos); 
-
-if (error) {
-    console.error('Error al cargar productos:', error.message);
-    return;
-}
-
     });
-
-    
-
 
     activarBotonesCarrito();
 }
 
-cargarProductos(); 
+cargarProductos();
+
+const inputBuscador = document.getElementById('buscador');
+
+if (inputBuscador) {
+    let temporizador;
+
+    inputBuscador.addEventListener('input', (e) => {
+        clearTimeout(temporizador);
+        const texto = e.target.value;
+
+        temporizador = setTimeout(() => {
+            cargarProductos(categoriaActual, texto);
+        }, 300);
+    });
+}
