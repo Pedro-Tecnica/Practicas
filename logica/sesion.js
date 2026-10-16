@@ -1,4 +1,5 @@
 import { supabase } from '../src/utils/supabaseClient.js';
+import { actualizarSaldo } from './saldo.js';
 
 const formRegistro = document.getElementById('form-registro');
 const btnIniciar = document.getElementById('btnIniciar');
@@ -90,11 +91,15 @@ async function comprobarEstadoUsuario(session) {
       }
 
       mensajeBienvenida.textContent = `Hola, ${cliente?.nombre || session.user.email}`;
+    
+      actualizarSaldo();
     }
   } else {
     if (formulario) formulario.style.display = 'block';
     if (formularioInicio) formularioInicio.style.display = 'block';
     if (vistaLogeado) vistaLogeado.style.display = 'none';
+
+     console.log('saldo consultado:', data, error);
   }
 }
 
@@ -115,5 +120,58 @@ if (btnLogout) {
     }
 
     alert('Sesión cerrada correctamente');
+  });
+}
+
+
+async function mostrarSaldo() {
+  const { data: { session } } = await supabase.auth.getSession();
+  const saldoEl = document.getElementById('saldo-actual');
+  if (!session || !saldoEl) return;
+
+  const { data, error } = await supabase
+    .from('saldo_usuario')
+    .select('saldo')
+    .eq('usuario_id', session.user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Error al obtener saldo:', error.message);
+    return;
+  }
+
+  saldoEl.textContent = `$${(data?.saldo ?? 0).toFixed(2)}`;
+}
+
+const btnAgregarSaldo = document.getElementById('btnagregarsaldo');
+
+if (btnAgregarSaldo) {
+  btnAgregarSaldo.addEventListener('click', async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      alert('Debes iniciar sesión para agregar saldo.');
+      return;
+    }
+
+    const monto = parseFloat(document.getElementById('monto-agregar').value);
+    if (!monto || monto <= 0) {
+      alert('Ingresá un monto válido.');
+      return;
+    }
+
+    const { data, error } = await supabase.rpc('agregar_saldo', {
+      p_usuario_id: session.user.id,
+      p_monto: monto,
+    });
+
+    if (error) {
+      console.error('Error al agregar saldo:', error.message);
+      alert('No se pudo agregar el saldo.');
+      return;
+    }
+
+    alert(`¡Saldo agregado! Nuevo saldo: $${data.toFixed(2)}`);
+    document.getElementById('monto-agregar').value = '';
+    mostrarSaldo();
   });
 }

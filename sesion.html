@@ -11,24 +11,32 @@
 
             
         <div class="cabecera">
+            <a href="index.html">
             <img src="/imgs/MacroLogo.png" alt="Logo MacroMundo" class="logo">
+            </a>
             <input id="buscador" type="text"> 
+               <div class="billetera">
+           <span id="saldo-cabecera" class="saldo-cabecera" hidden>
+            Saldo: <strong class="saldo-actual">$0.00</strong>
+</span>
+    </div>
             <a href="carrito.html">
                 <img src="/imgs/carrito.png" alt="Carrito de compras" class="carrito" id="carrito">
             </a>
         </div>
 
         <div class="navegacion"> 
-            <a href="index.html">Todo</a>
-            <a href="cocina.html">Cocina</a>
-            <a href="gaming.html">Gaming</a>
-            <a href="deportes.html">Deportes</a>
-            <a href="sesion.html">Mi Cuenta</a>
+            <a href="index.html">TODO</a>
+            <a href="cocina.html">COCINA</a>
+            <a href="gaming.html">GAMING</a>
+            <a href="deportes.html">DEPORTES</a>
+            <a href="venta.html">PUBLICAR PRODUCTO</a>
+            <a href="sesion.html">MI CUENTA</a>
         </div>
 
         
         <div id="formulario2">
-            <h2>Inicio de Sesion</h2>
+            <h2 class="tit">Inicio de Sesion</h2>
             <div class="registro">
                 <h2>Ingrese sus datos</h2>
                 <label>Su Mail:</label>
@@ -43,10 +51,13 @@
         <div id="vistalogeado">
         <h2>Ya tienes una sesión activa</h2>
         <p id="mensaje-bienvenida"></p>
+        <input type="number" id="monto-agregar" placeholder="Monto a agregar" min="1" step="0.01">
+        <button id="btnagregarsaldo">Agregar Saldo</button>
         <button id="btn-logout">Cerrar Sesión</button>
         </div>
 
         <script type="module" src="/logica/sesion.js"></script>
+        <script type="module" src="/logica/saldo.js"></script>
     </div>
 
 

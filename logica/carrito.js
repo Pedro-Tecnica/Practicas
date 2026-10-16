@@ -38,7 +38,7 @@ async function cargarCarrito() {
 
     items.forEach(item => {
         const producto = item.Productos;
-        if (!producto) return; // por si el producto fue borrado
+        if (!producto) return; 
 
         total += producto.precio * item.cantidad;
 

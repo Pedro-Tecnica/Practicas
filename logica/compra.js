@@ -1,4 +1,14 @@
 import { supabase } from '../src/utils/supabaseClient.js';
+import { actualizarSaldo } from './saldo.js';
+
+function esc(texto) {
+    return String(texto ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 
 export function activarBotonesCarrito() {
     document.querySelectorAll('.btn-agregar').forEach(boton => {
@@ -67,6 +77,9 @@ export function activarBotonesCarrito() {
                 alert('Hubo un error al guardar el producto.');
             } else {
                 alert('¡Producto agregado al carrito exitosamente!');
+                alert('¡Compra realizada con éxito!');
+                cargarCarrito();
+                actualizarSaldo();
             }
         });
     });

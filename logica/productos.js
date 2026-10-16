@@ -1,7 +1,16 @@
 import { supabase } from '../src/utils/supabaseClient.js';
 import { activarBotonesCarrito } from './compra.js';
 
-// Detecta automáticamente la categoría según el nombre del archivo HTML actual
+
+function esc(texto) {
+    return String(texto ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+// Detecta la categoría según el nombre del archivo HTML
 const pagina = window.location.pathname.split('/').pop();
 const categoriasPorPagina = {
     'cocina.html': 'cocina',
@@ -39,9 +48,10 @@ async function cargarProductos(categoria = categoriaActual, textoBusqueda = '') 
         div.classList.add('producto');
         div.innerHTML = `
             <img src="${producto.imagen}" alt="${producto.nombre}">
-            <h3>${producto.nombre}</h3>
-            <p>${producto.descripcion || ''}</p>
-            <h2>Precio: $${producto.precio}</h2>
+            <h3 class="nombre-producto">${producto.nombre}</h3>
+            <p class="descripcion">${producto.descripcion || ''}</p>
+            <h2 class="precio">Precio: $${producto.precio}</h2>
+            <h3 class="stock">Stock: ${producto.cantidad}</h3>
             <button class="btn-agregar" data-id="${producto.id}">Agregar al Carrito</button>`;
         contenedor.appendChild(div);
     });
